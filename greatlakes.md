@@ -9,11 +9,36 @@
 - `/tmpssd/`: 14TB of the fastest storage assigned by nodes, only accessible from a running job. Have to copy data in from scratch or turbo first
 
 
+## Interactive section
+Create a bash script with the template below
+
+```bash
+#/bin/bash
+
+NUMGPU=$1
+echo NUM_GPU=$NUMGPU
+
+salloc \
+--job-name=interactive_job \
+--mail-user=czyang@umich.edu \
+--mail-type=NONE \
+--ntasks=1 \
+--cpus-per-gpu=4 \
+--mem-per-cpu=16GB \
+--gres=gpu:$NUMGPU \
+--time=01-00:00:00 \
+--partition=spgpu \
+--account=ahowens1
+```
+
+Remeber to quit it or cancel the job if you are not using.
+
+
 ## Lanuch jobs and monitor
 
 
 
-## Interactive section
+
 
 
 ## Helpful commands
