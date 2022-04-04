@@ -8,6 +8,11 @@
 - `/nfs/turbo/coe-ahowens/`: Also 10TB, but no 60 day policy. Slower than scratch (still pretty fast though)
 - `/tmpssd/`: 14TB of the fastest storage assigned by nodes, only accessible from a running job. Have to copy data in from scratch or turbo first
 
+To preserve the file in scratch:
+```bash
+#/bin/bash
+find ~/scratch/czyang -exec touch -ah {} \;
+```
 
 ## Interactive section
 Create a bash script with the template below
@@ -35,7 +40,36 @@ Remeber to quit it or cancel the job if you are not using.
 
 
 ## Lanuch jobs and monitor
+- Create a bash script `myjob.sh` with the template below
+```bash
+#!/bin/bash
 
+#SBATCH -p spgpu
+#SBATCH --account=ahowens1
+#SBATCH --job-name=FMA-StereoCRW-V2
+#SBATCH --ntasks-per-node=1
+#SBATCH --cpus-per-task=4
+#SBATCH --open-mode=append
+
+#SBATCH --gres=gpu:1
+#SBATCH --time=10-00:00:00
+#SBATCH --mem-per-cpu=11G
+
+# module load cuda/11.2.1  gcc/8.2.0
+export LOGURU_LEVEL="INFO"
+
+cd /home/czyang/Workspace/Learn-From-Stereo/StereoCRW
+
+EXP='Final-GreatLake/PatchSpec-FreeMusic/EXP1.2-StereoCRW-V2-0.064S-ResNet9-4Stride-49num-0skipnode'
+batch_size=48
+num_workers=4
+
+# running jobs
+python main.py --exp=$EXP --epochs=80 --setting='aug_stereocrw_freemusic' --backbone='resnet9' --batch_size=$batch_size --num_workers=$num_workers --save_step=1 --valid_step=1 --lr=0.0001 --optim='AdamW' --repeat=1 --schedule='cos' --clip_length=0.064 --patch_stride=4 --patch_num=49 --wav2spec --aug_wave --regular_scaling --add_mixture --noiseSNR=40 --add_reverb --synthetic_rate=0.0 --crw_rate=1.0 --resume='PatchSpec-FreeMusic-New/EXP3.4-AugCRW-0.48S-ResNet9-4Stride-49num-0skipnode-RegularAugWave-AdamW-AddNoise-AddMixture/checkpoint_ep80.pth.tar'
+```
+
+- Lanuch job: `sbatch myjob.sh`
+- Monitor the output: `tail -n 50 -f slurm-xxxx.out`
 
 
 
