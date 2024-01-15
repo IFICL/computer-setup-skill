@@ -86,6 +86,34 @@ python main.py --exp=$EXP --epochs=80 --setting='aug_stereocrw_freemusic' --back
 - View /scratch Use: `scratch-quota ahowens_root`
 
 
+## Install code-server for Greatlakes
+- download code-server from [github](https://github.com/coder/code-server) and extract to home path or others. Here, we use v4.19.0 as an example, please use the latest version in the github:
+```bash
+wget https://github.com/coder/code-server/releases/download/v4.19.0/code-server-4.19.0-linux-amd64.tar.gz
+tar -zxvf code-server-4.19.0-linux-amd64.tar.gz
+```
+
+- Lanuch code-server using tmux so that session won't be closed. 
+```bash
+cd code-server-4.19.0-linux-amd64/bin
+./code-server --port 8082
+```
+
+- Open config.yaml for password:
+```bash
+cat /home/czyang/.config/code-server/config.yaml
+```
+
+- In the local machine, ssh with the specifc portal, and make sure you are ssh into the same login node. Then open the `http://localhost:8082/` in the Browse.
+```
+ssh -L 8082:localhost:8082 greatlake1  
+```
+
+- For easy use in the future, add the line below in the `~/.zshrc`, then you can launch code-server anywhere by `code-server --port 8082`:
+```bash
+alias code-server='sh ~/code-server-4.19.0-linux-amd64/bin/code-server'
+```
+
+
 ## Guidance from others
 - [Introduction to GreatLakes](https://docs.google.com/presentation/d/1ZnHSLA6WCXz-Ybdvz0OtFMok6IrSAzXS4nP6oQrfAOY/edit#slide=id.p)
-- 
