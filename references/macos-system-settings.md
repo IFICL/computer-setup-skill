@@ -6,7 +6,7 @@ Use these values as a comparison checklist on a new Mac. Do not apply them autom
 
 ## Appearance and desktop behavior
 
-- Appearance is set to Dark with automatic appearance switching enabled.
+- Appearance is set to **Auto**. The snapshot was captured while Dark appearance was active; `AppleInterfaceStyle = Dark` is the current state, while `AppleInterfaceStyleSwitchesAutomatically = 1` is the persistent preference.
 - Double-clicking a window title bar maximizes the window rather than minimizing it.
 - Scroll bars appear while scrolling.
 - Activating an application does not automatically switch to a Space containing one of its open windows.
