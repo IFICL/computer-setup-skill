@@ -4,9 +4,26 @@ Snapshot source: macOS 26.6.2 on Apple silicon. This file records selected behav
 
 Use these values as a comparison checklist on a new Mac. Do not apply them automatically: preference keys and effects can change between macOS releases, and some settings require an application or session restart.
 
+## Verified automatic behaviors
+
+The following were checked separately so that a current state is not confused with an automatic preference:
+
+- **Appearance: Auto.** Confirmed by `AppleInterfaceStyleSwitchesAutomatically = 1`. `AppleInterfaceStyle = Dark` only records that Dark appearance was active at inspection time.
+- **Spelling language: Automatic.** Confirmed by `KB_SpellingLanguageIsAutomatic = 1`.
+- **Software update checks: Automatic.** `softwareupdate --schedule` reports that automatic checking is on. This does not prove that automatic download or installation is enabled, so those are not recorded as enabled.
+- **Dock hiding: Automatic.** `com.apple.dock autohide = 1`.
+- **Screen saver: Automatic after 20 minutes.** The current-host idle time is `1200` seconds.
+- **Text assistance:** automatic capitalization, spelling correction, smart period, smart dash, smart quote, and text completion behaviors are enabled individually.
+
+The following are explicitly **not** automatic:
+
+- The menu bar is not set to hide automatically (`_HIHideMenuBar = 0`).
+- Switching to an application does not automatically move to a Space containing one of its windows (`AppleSpacesSwitchOnActivate = 0`).
+- Recent applications are not shown automatically in the Dock (`show-recents = 0`).
+
 ## Appearance and desktop behavior
 
-- Appearance is set to **Auto**. The snapshot was captured while Dark appearance was active; `AppleInterfaceStyle = Dark` is the current state, while `AppleInterfaceStyleSwitchesAutomatically = 1` is the persistent preference.
+- Appearance is set to **Auto**; see the verified automatic behaviors above.
 - Double-clicking a window title bar maximizes the window rather than minimizing it.
 - Scroll bars appear while scrolling.
 - Activating an application does not automatically switch to a Space containing one of its open windows.
@@ -28,6 +45,7 @@ These regional choices may be personal or location-dependent. Ask before reprodu
 - Key repeat rate: `KeyRepeat = 6`.
 - Press-and-hold for accented characters is disabled, allowing keys to repeat.
 - Automatic capitalization, spelling correction, period substitution, smart dashes, smart quotes, and text completion are enabled.
+- Spelling-language selection is automatic.
 - Enabled typing methods include the U.S. keyboard and Simplified Chinese Pinyin; Pinyin was active when inspected.
 - The Fn/Globe key behavior is stored as `AppleFnUsageType = 2`.
 
@@ -54,6 +72,7 @@ Scroll Reverser supplies the device-specific exception: keep natural scrolling f
 - Minimize windows into the application icon.
 - Group App Exposé windows by application.
 - Use the Genie minimize effect.
+- Do not show recently used applications in the Dock.
 
 The pinned Dock application order is deliberately excluded because it is machine- and workflow-specific.
 
@@ -61,10 +80,22 @@ The pinned Dock application order is deliberately excluded because it is machine
 
 No clear portable overrides were found for hidden files, path bar, status bar, default view style, new-window target, screenshot location, or screenshot format. Leave those at the new Mac's defaults unless the owner later adds explicit preferences.
 
+The screen saver is configured to start after 20 minutes of inactivity.
+
 ## Control Center
 
-- Battery, Clock, Focus, Sound, and Wi-Fi are visible in Control Center.
-- Most individual controls are not separately pinned to the menu bar.
+### Menu bar
+
+- The menu bar does not hide automatically (`_HIHideMenuBar = 0`).
+- The clock is digital, uses 24-hour time, shows the day of the week, and does not show the date.
+- The Control Center menu-bar item is visible.
+- AirDrop, Displays, Screen Mirroring, Stage Manager, and Fast User Switching are not separately visible in the menu bar.
+- No explicit `BatteryShowPercentage` preference was found, so battery-percentage display is not claimed as on or off.
+
+### Control Center
+
+- Battery, Clock, Focus, Sound, and Wi-Fi modules are enabled in the stored Control Center visibility state.
+- Item positions are not preserved because they are layout state rather than portable behavior.
 
 Item positions and migration state are excluded because they are implementation details rather than meaningful setup preferences.
 
