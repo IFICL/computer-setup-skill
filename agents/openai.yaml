@@ -1,0 +1,4 @@
+interface:
+  display_name: Computer Setup
+  short_description: Set up shared Zsh, tmux, SSH, and GitHub tooling
+  default_prompt: Set up my command-line environment while preserving my existing configuration.
