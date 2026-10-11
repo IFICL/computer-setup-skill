@@ -64,7 +64,7 @@ git status --short
 
 The interpreter should belong to this checkout's `.venv`, the project command currently prints `Hello from myenv!`, and imports should succeed. A false MPS result is not by itself a setup failure. Confirm that synchronization did not alter tracked environment files.
 
-Manual activation is optional:
+Manual activation in the current shell:
 
 ```bash
 source .venv/bin/activate
@@ -78,7 +78,22 @@ From another directory, use the actual checkout path:
 uv run --locked --directory "$HOME/my-uv-env" python
 ```
 
-Do not add automatic activation to `.zshrc` unless requested. Keep other projects' virtual environments separate. In VS Code or Cursor, select this checkout's `.venv/bin/python` only for the workspace that should use it. For notebooks, select the corresponding Python environment/kernel; installing ipykernel does not automatically select it in the editor.
+### Activate automatically in new Zsh sessions
+
+The owner wants this environment activated automatically. After `uv sync --locked` succeeds and `.venv/bin/activate` exists, back up the active Zsh startup file (`${ZDOTDIR:-$HOME}/.zshrc`) and merge the following block once, after Oh My Zsh and other environment initialization:
+
+```zsh
+# env
+if [[ -f "$HOME/my-uv-env/.venv/bin/activate" ]]; then
+    source "$HOME/my-uv-env/.venv/bin/activate"
+fi
+```
+
+If the checkout uses a different location, substitute that actual path in both lines. Update an existing equivalent block rather than appending duplicates. Review any existing Conda, pyenv, or other automatic activation so that competing environment initialization does not override the selected interpreter.
+
+Run `zsh -n "${ZDOTDIR:-$HOME}/.zshrc"`, then open a fresh Zsh terminal tab. Verify `echo "$VIRTUAL_ENV"` points to the checkout's `.venv` and `python -c 'import sys; print(sys.executable)'` uses its interpreter. The file guard allows the shell to start normally before the environment exists. `deactivate` leaves the environment for the current session; a new Zsh session activates it again.
+
+Keep other projects' virtual environments separate: activate their own environment or use their `uv run` commands when working on them. In VS Code or Cursor, select this checkout's `.venv/bin/python` only for the workspace that should use it. For notebooks, select the corresponding Python environment/kernel; installing ipykernel does not automatically select it in the editor.
 
 ## 5. Maintain or recover
 
