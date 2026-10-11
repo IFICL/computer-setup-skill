@@ -4,6 +4,23 @@ This is the owner's evolving list of applications to install on a Mac. Keep entr
 
 Do not install an application merely because it appears here. Check whether it is already installed, verify current compatibility from the official source, and obtain approval before downloading or installing software.
 
+## Installation and verification workflow
+
+1. Check `/Applications` and `~/Applications` for the requested app; confirm its version through **About** rather than reinstalling an existing copy.
+2. Open its official download page and select a build compatible with the current macOS version and processor. Compatibility statements below are historical observations, so check them again at installation time.
+3. For a DMG, mount it and drag the app to `/Applications`; for a ZIP, extract it and move the app there. Resolve an existing app conflict before replacing it. iTerm2 installation is performed by the owner.
+4. Launch the app, let the user complete sign-in or license activation, and grant only required permissions. Use the official installer and macOS verification flow; do not bypass security checks.
+5. Perform each entry's first-run setup and verify the behavior listed below. Record unavailable features or steps awaiting user action.
+
+| App | Successful setup check |
+|---|---|
+| BetterDisplay | Select the actual monitor and verify one supported brightness or resolution adjustment; restore the original value after the test. |
+| Scroll Reverser | Test mouse wheel and trackpad independently; trackpad stays natural while the mouse uses the chosen reverse direction. |
+| iTerm2 | Open a new tab; verify Zsh, plugin loading, and reference appearance/shortcuts if settings were imported. |
+| VS Code | `code --version` works and `code .` opens a chosen test folder. |
+| Cursor (optional) | Open a chosen test folder and verify editing; check sign-in/indexing only if AI features were requested. |
+| ChatGPT | Launch, confirm the intended account, and send a harmless test prompt; test the launcher shortcut if configured. |
+
 ## BetterDisplay
 
 - **Official site:** [betterdisplay.pro](https://betterdisplay.pro/en/)

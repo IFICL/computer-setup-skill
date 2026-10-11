@@ -1,6 +1,6 @@
 ---
 name: computer-setup-skill
-description: Set up a reusable Zsh, tmux, SSH, and GitHub command-line environment on macOS or Linux. Use when configuring a new workstation or repairing this shared shell setup; do not overwrite existing dotfiles or SSH keys without approval.
+description: Set up Zsh, tmux, SSH, and GitHub on macOS or Linux, and reproduce the owner's macOS application, iTerm2, and system preferences. Use for new-computer setup or repairs to this environment.
 ---
 
 # Workstation Setup
@@ -14,9 +14,11 @@ Configure the requested parts of a macOS or Linux command-line environment while
    On macOS, also read [references/iterm2-profile.md](references/iterm2-profile.md) when the user wants to reproduce or import the reference iTerm2 profile.
    Read [references/macos-required-apps.md](references/macos-required-apps.md) when recommending or reviewing the owner's required macOS applications.
    Read [references/macos-system-settings.md](references/macos-system-settings.md) when comparing or reproducing the owner's macOS behavior preferences.
+   Read [references/macos-python-uv.md](references/macos-python-uv.md) only when the user requests the optional macOS Python environment backed by `IFICL/my-uv-env`.
 3. Show the proposed changes before modifying an existing dotfile. Back up files before any approved replacement or substantial rewrite.
-4. Run only the requested setup sections. Installation, remote downloads, SSH-key creation, and GitHub authentication require the user's authorization at the point where they will occur.
+4. Run only the requested setup sections. Use the authorization already provided by the user; ask only for missing choices or additional authority, such as replacing existing configuration or granting protected permissions.
 5. Verify installed commands and configuration syntax where the relevant tool supports it. Report manual steps that remain.
+6. Report each requested item as completed, already configured, skipped by choice, or blocked with its specific reason. Commit or push only when the user explicitly requests that action.
 
 ## Resources
 
